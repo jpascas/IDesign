@@ -1,4 +1,6 @@
 ﻿using IDesign.Access;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -11,9 +13,8 @@ namespace IDesign.Manager
 {
     public static class ManagerCollectionExtensions
     {
-        public static void AddManagersAndAcceses(this IServiceCollection services)
-        {
-            services.AddAccesses();
+        public static void AddManagers(this IServiceCollection services)
+        {            
             services.AddScoped<ICountryManager, CountryManager>();
             services.AddScoped<ICityManager, CityManager>();     
 

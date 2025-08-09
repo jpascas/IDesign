@@ -18,8 +18,11 @@ public class DesignDbContext : DbContext
             .HasForeignKey(c => c.CountryId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<Country>()
-               .HasData(GetCountriesToSeed());
+        var countries = GetCountriesToSeed().ToList();
+        modelBuilder.Entity<Country>().HasData(countries.Select(c => new Country { Id = c.Id, Name = c.Name }));
+
+        var cities = countries.SelectMany(c => c.Cities).ToList();
+        modelBuilder.Entity<City>().HasData(cities.Select(city => new City { Id = city.Id, Name = city.Name, CountryId = city.CountryId }));
     }
 
     private static IEnumerable<Country> GetCountriesToSeed()

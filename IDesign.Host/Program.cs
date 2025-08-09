@@ -1,5 +1,6 @@
-using IDesign.Manager;
 using IDesign.Access;
+using IDesign.Host.Exceptions;
+using IDesign.Manager;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,8 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<DesignDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddManagersAndAcceses();
+// add managers and access layers
+builder.Services.AddManagers();
+builder.Services.AddAccesses();
 
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -27,6 +31,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+app.InitializeDatabase();
 
 app.Run();
 
