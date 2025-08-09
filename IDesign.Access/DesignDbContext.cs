@@ -2,21 +2,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IDesign.Access;
 
-public class Country
-{
-    public int Id { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public ICollection<City> Cities { get; set; } = new List<City>();
-}
-
-public class City
-{
-    public int Id { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public int CountryId { get; set; }
-    public Country? Country { get; set; }
-}
-
 public class DesignDbContext : DbContext
 {
     public DesignDbContext(DbContextOptions<DesignDbContext> options) : base(options) { }

@@ -7,8 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services
 builder.Services.AddDbContext<DesignDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddScoped<CountryRepository>();
-builder.Services.AddScoped<CityRepository>();
+builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+builder.Services.AddScoped<ICityRepository, CityRepository>();
 builder.Services.AddScoped<ICountryManager, CountryManager>();
 builder.Services.AddScoped<ICityManager, CityManager>();
 builder.Services.AddControllers();
