@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Access", "2. Access", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Utilities", "4. Utilities", "{B9012F20-ED84-4472-9409-8142BF8498BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDesign.SQLite", "IDesign.SQLite\IDesign.SQLite.csproj", "{373BE5F7-FFF0-4991-8BE8-DB3587E850E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDesign.Utilities", "IDesign.SQLite\IDesign.Utilities.csproj", "{373BE5F7-FFF0-4991-8BE8-DB3587E850E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

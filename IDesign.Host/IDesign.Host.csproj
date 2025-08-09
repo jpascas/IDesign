@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IDesign.Manager\IDesign.Manager.csproj" />
-    <ProjectReference Include="..\IDesign.SQLite\IDesign.SQLite.csproj" />
   </ItemGroup>
 
 </Project>
