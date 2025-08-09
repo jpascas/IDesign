@@ -1,4 +1,4 @@
-namespace IDesign.Access;
+namespace IDesign.Access.Entities;
 
 public class City
 {

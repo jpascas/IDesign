@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using IDesign.Access.Entities;
 
 namespace IDesign.Access;
 

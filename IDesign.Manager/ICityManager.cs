@@ -1,4 +1,4 @@
-using IDesign.Access;
+using IDesign.Access.Entities;
 
 namespace IDesign.Manager;
 

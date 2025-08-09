@@ -1,3 +1,4 @@
+using IDesign.Access.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace IDesign.Access;
