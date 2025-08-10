@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDesign.Access.Identity", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Tests", "5. Tests", "{7F0B9882-62C5-4157-AAB8-DB25AC5469AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDesign.IntegrationTests", "IDesign.IntegrationTests\IDesign.IntegrationTests.csproj", "{3184BAD3-3D05-40BE-8222-41C59FF03633}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDesign.EndToEndTests", "IDesign.IntegrationTests\IDesign.EndToEndTests.csproj", "{3184BAD3-3D05-40BE-8222-41C59FF03633}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

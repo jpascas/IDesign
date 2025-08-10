@@ -1,7 +1,7 @@
 using NFluent;
 using System.Net.Http.Headers;
 
-namespace IDesign.IntegrationTests;
+namespace IDesign.EndToEndTests;
 
 [TestFixture]
 public class CitiesControllerTests
