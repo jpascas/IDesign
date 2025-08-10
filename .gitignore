@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/IDesign.Host/design.db
+/IDesign.Host/design.db-shm
+/IDesign.Host/design.db-wal
