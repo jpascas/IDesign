@@ -20,7 +20,8 @@ namespace IDesign.Access.Identity.JWT
 
             var claims = new Claim[] { 
                 new (JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new (JwtRegisteredClaimNames.Email, user.Email)
+                new (JwtRegisteredClaimNames.Email, user.Email),
+                new (ClaimTypes.Role, user.Role)
             };
 
             var signingCredentials = new SigningCredentials(
