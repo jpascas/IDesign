@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace IDesign.Host.Models
+namespace IDesign.Manager.Models
 {
     public class CityDto
     {

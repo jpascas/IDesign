@@ -1,16 +1,17 @@
 using IDesign.Access;
 using IDesign.Access.Entities;
-using IDesign.Host.Models;
 using IDesign.Manager;
+using IDesign.Manager.Models;
 using Mapster;
 using MapsterMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IDesign.Host.Controllers;
 
-[ApiController]
+[Authorize]
 [Route("api/[controller]")]
-public class CountriesController : ControllerBase
+public class CountriesController : ApiController
 {
     private readonly ICountryManager _manager;
     private readonly IMapper _mapper;

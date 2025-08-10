@@ -1,7 +1,7 @@
 using IDesign.Access.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace IDesign.Access;
+namespace IDesign.Access.Repositories;
 
 public class CountryRepository : ICountryRepository
 {
