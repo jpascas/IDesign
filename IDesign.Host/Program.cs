@@ -2,6 +2,7 @@ using IDesign.Access;
 using IDesign.Host.Exceptions;
 using IDesign.Manager;
 using Microsoft.EntityFrameworkCore;
+using Mapster;
 
 var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
@@ -17,6 +18,8 @@ var configuration = builder.Configuration
 // Add services
 builder.Services.AddDbContext<DesignDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddMapster();
 
 // add managers and access layers
 builder.Services.AddManagers();

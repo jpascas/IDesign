@@ -1,7 +1,11 @@
-using IDesign.Access.Entities;
-using IDesign.Manager;
 using IDesign.Access;
+using IDesign.Access.Entities;
+using IDesign.Host.Models;
+using IDesign.Manager;
+using Mapster;
+using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.Metrics;
 
 namespace IDesign.Host.Controllers;
 
@@ -10,30 +14,36 @@ namespace IDesign.Host.Controllers;
 public class CitiesController : ControllerBase
 {
     private readonly ICityManager _manager;
-    public CitiesController(ICityManager manager) => _manager = manager;
+    private readonly IMapper _mapper;
+    public CitiesController(ICityManager manager, IMapper mapper)
+    {
+        _manager = manager;
+        _mapper = mapper;
+    }
 
     [HttpGet]
-    public async Task<IActionResult> Get() => Ok(await _manager.GetAllAsync());
+    public async Task<IActionResult> Get() => Ok((await _manager.GetAllAsync()).Adapt<List<CityDto>>());
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
         var city = await _manager.GetByIdAsync(id);
-        return city == null ? NotFound() : Ok(city);
+        return city == null ? NotFound() : Ok(city.Adapt<CityDto>());
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(City city)
+    public async Task<IActionResult> Post(CityDto city)
     {
-        await _manager.AddAsync(city);
-        return CreatedAtAction(nameof(Get), new { id = city.Id }, city);
+        var cityEntity = city.Adapt<City>();
+        await _manager.AddAsync(cityEntity);
+        return CreatedAtAction(nameof(Get), new { id = city.Id }, cityEntity.Adapt<CountryDto>());
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put(int id, City city)
+    public async Task<IActionResult> Put(int id, CityDto city)
     {
         if (id != city.Id) return BadRequest();
-        await _manager.UpdateAsync(city);
+        await _manager.UpdateAsync(city.Adapt<City>());
         return NoContent();
     }
 
