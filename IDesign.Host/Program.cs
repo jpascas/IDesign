@@ -18,15 +18,14 @@ var configuration = builder.Configuration
     .AddEnvironmentVariables()
     .Build();
 
-// Add services
-builder.Services.AddDbContext<DesignDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 builder.Services.AddMapster();
 
 // add managers and access layers
 builder.Services.AddManagers();
 builder.Services.AddAccesses();
+
+builder.Services.AddDbContext<DesignDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddControllers()

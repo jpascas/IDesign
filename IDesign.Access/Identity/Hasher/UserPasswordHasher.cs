@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 
 namespace IDesign.Access.Identity
 {
-    public class UserPasswordHasher : PasswordHasher<User?>, IPasswordHasher<User?>, IPasswordHasher
+    public class UserPasswordHasher : PasswordHasher<User>, IPasswordHasher<User>, IPasswordHasher
     {
         public UserPasswordHasher(
             IOptions<PasswordHasherOptions>? optionsAccessor = null)

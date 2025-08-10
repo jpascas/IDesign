@@ -1,14 +1,52 @@
 using IDesign.Access.Entities;
+using IDesign.Access.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+using System.Reflection.Emit;
 
 namespace IDesign.Access;
 
 public class DesignDbContext : DbContext
 {
-    public DesignDbContext(DbContextOptions<DesignDbContext> options) : base(options) { }
+    private readonly IPasswordHasher? _hasher;
+    public DesignDbContext(DbContextOptions<DesignDbContext> options, IPasswordHasher? hasher = null) : base(options) {
+        _hasher = hasher;
+    }
 
     public DbSet<Country> Countries => Set<Country>();
     public DbSet<City> Cities => Set<City>();
+    public DbSet<User> Users => Set<User>();
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSeeding(async (context, seed) =>
+        {
+            DesignDbContext? designDbContext = context as DesignDbContext;
+            if (designDbContext == null)
+            {
+                throw new InvalidOperationException("DesignDbContext is not configured correctly.");
+            }
+
+            if (!await designDbContext.Users.AnyAsync())
+            {
+                var users = GetUsersToSeed();
+
+                await designDbContext.Users.AddRangeAsync(users);
+                await designDbContext.SaveChangesAsync();
+            }
+
+            if (!await designDbContext.Countries.AnyAsync())
+            {
+                var countries = GetCountriesToSeed();
+
+                await designDbContext.Countries.AddRangeAsync(countries);
+                await designDbContext.SaveChangesAsync();
+
+            }
+        });
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -16,16 +54,10 @@ public class DesignDbContext : DbContext
             .HasMany(c => c.Cities)
             .WithOne(c => c.Country)
             .HasForeignKey(c => c.CountryId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        var countries = GetCountriesToSeed().ToList();
-        modelBuilder.Entity<Country>().HasData(countries.Select(c => new Country { Id = c.Id, Name = c.Name }));
-
-        var cities = countries.SelectMany(c => c.Cities).ToList();
-        modelBuilder.Entity<City>().HasData(cities.Select(city => new City { Id = city.Id, Name = city.Name, CountryId = city.CountryId }));
+            .OnDelete(DeleteBehavior.Cascade);        
     }
 
-    private static IEnumerable<Country> GetCountriesToSeed()
+    private List<Country> GetCountriesToSeed()
     {
         var countries = new List<Country>
         {
@@ -61,5 +93,20 @@ public class DesignDbContext : DbContext
             country.Cities = cities.Where(c => c.CountryId == country.Id).ToList();
         }
         return countries;
+    }
+
+    private List<User> GetUsersToSeed()
+    {
+        if (_hasher == null)
+        {
+            throw new InvalidOperationException("Password hasher is not configured.");
+        }
+
+        return new List<User>
+        {
+            new User { Id = 1, Email = "admin@idesign.test", PasswordHash = _hasher.Hash("admin123"), Role = "Admin" },
+            new User { Id = 2, Email = "user1@idesign.test", PasswordHash = _hasher.Hash("user123"), Role = "User" },
+            new User { Id = 3, Email = "user2@idesign.test", PasswordHash = _hasher.Hash("user123"), Role = "User" }
+        };
     }
 }
