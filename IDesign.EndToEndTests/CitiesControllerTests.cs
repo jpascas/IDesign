@@ -2,6 +2,7 @@ using IDesign.Manager.Models;
 using NFluent;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using IDesign.IntegrationTests;
 
 namespace IDesign.EndToEndTests;
 

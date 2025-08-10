@@ -1,6 +1,7 @@
 using NFluent;
 using System.Net.Http.Json;
 using System.Net.Http.Headers;
+using IDesign.IntegrationTests;
 
 namespace IDesign.EndToEndTests;
 
