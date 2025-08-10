@@ -20,5 +20,10 @@ namespace IDesign.Host.Controllers
         {
             return  Convert.ToInt64(this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
         }
+
+        protected string GetCurrentUserRole()
+        {
+            return this.User.FindFirst(ClaimTypes.Role).Value;
+        }
     }
 }

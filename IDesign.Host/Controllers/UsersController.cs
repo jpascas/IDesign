@@ -33,10 +33,17 @@ namespace IDesign.Host.Controllers
         }
 
         [Authorize]
-        [HttpGet("protected")]
+        [HttpGet("usersonly")]
         public async Task<ActionResult> ActionForUsersOnly()
         {
-            return Ok($"You are an authenticated user with id {this.GetCurrentUserId()}");
+            return Ok($"You are an authenticated user with id {this.GetCurrentUserId()} with role {this.GetCurrentUserRole()}");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("adminonly")]
+        public async Task<ActionResult> ActionForAdminsOnly()
+        {
+            return Ok($"You are an authenticated user with id {this.GetCurrentUserId()} with role {this.GetCurrentUserRole()}");
         }
     }
 }
