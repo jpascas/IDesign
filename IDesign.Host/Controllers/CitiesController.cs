@@ -22,7 +22,11 @@ public class CitiesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get() => Ok((await _manager.GetAllAsync()).Adapt<List<CityDto>>());
+    public async Task<IActionResult> Get()
+    {
+        var cities = await _manager.GetAllAsync();
+        return Ok(cities.Adapt<List<CityDto>>());
+    }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)

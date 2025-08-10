@@ -20,13 +20,14 @@ public class CountriesController : ControllerBase
         _mapper = mapper;
     }
 
-    [HttpGet]    
-    public async Task<IActionResult> Get() {
+    [HttpGet]
+    public async Task<IActionResult> Get()
+    {
         var countries = await _manager.GetAllAsync();
         return Ok(countries.Adapt<List<CountryDto>>());
     }
 
-    [HttpGet("{id}")]    
+    [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
         var country = await _manager.GetByIdAsync(id);
