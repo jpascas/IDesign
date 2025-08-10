@@ -74,6 +74,27 @@ public class CountriesControllerTests
     }
 
     [Test]
+    public async Task Post_AddsNewCountryWithCities()
+    {
+        var token = await UsersControllerTests.AuthenticateAsAdmin(_client);
+        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+        var newCountry = new { Name = "TestCountry",
+            Cities = new[]
+            {
+                new { Name = "TestCity1" },
+                new { Name = "TestCity2" }
+            }
+        };
+        var response = await _client.PostAsJsonAsync("/api/countries", newCountry);
+        response.EnsureSuccessStatusCode();
+        var content = await response.Content.ReadAsStringAsync();
+        Check.That(content).Contains("TestCountry");
+        Check.That(content).Contains("TestCity1");
+        Check.That(content).Contains("TestCity2");
+    }
+
+    [Test]
     public async Task Post_ReturnsBadRequest_WhenModelIsInvalid()
     {
         var token = await UsersControllerTests.AuthenticateAsAdmin(_client);
