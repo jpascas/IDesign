@@ -23,6 +23,7 @@ builder.Services.AddMapster();
 // add managers and access layers
 builder.Services.AddManagers();
 builder.Services.AddAccesses();
+builder.Services.AddAccessesIdentity();
 
 builder.Services.AddDbContext<DesignDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
