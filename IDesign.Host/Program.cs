@@ -40,8 +40,8 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
-        Title = "Blue Coding API",
-        Description = "An ASP.NET Core Web API for Blue Coding",
+        Title = "Abstra IDesign API",
+        Description = "An ASP.NET Core Web API for Abstra",
         Contact = new OpenApiContact
         {
             Name = "Jhonatan Passalacqua",
