@@ -101,3 +101,5 @@ app.InitializeDatabase();
 
 app.Run();
 
+public partial class Program { }
+
